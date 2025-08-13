@@ -1,6 +1,7 @@
 from src.config import OPENAI_API_KEY, GOOGLE_API_KEY
 from src.logger_config import logger
 
+
 class LLMAgent:
     def __init__(self):
         """
@@ -12,7 +13,9 @@ class LLMAgent:
 
         self.logger.info("LLMAgent initialized.")
         if not self.openai_api_key or not self.google_api_key:
-            self.logger.warning("One or both API keys are missing. The agent may not function correctly.")
+            self.logger.warning(
+                "One or both API keys are missing. The agent may not function correctly."
+            )
 
     def generate_response(self, prompt: str) -> str:
         """

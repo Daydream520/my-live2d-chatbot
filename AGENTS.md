@@ -128,13 +128,13 @@ P3 平台與生態系
 ○ 金流服務 (Payment Gateway): 如 Stripe,處理市場交易。
 ###【技術棧 (Tech Stack)】
 分類 技術 目的與說明
-前端 (Frontend) 
+前端 (Frontend)
 React / Next.js + TypeScript 建立高效能、可維護的單頁應用程式,並提供 SSR/SSG優化 SEO 與初始載入。
 Live2D Cubism Web SDK 官方SDK,用於在 WebGL上渲染 Live2D 模型。
 Zustand / Redux Toolkit 進行全域狀態管理(用戶登入狀態、當前模型、對話紀錄)。
 Web Speech API / GoogleCloud STT 實現語音輸入功能。WebSpeech API 為主,不支援時可降級或建議使用 Chrome。
 Web Audio API / GoogleCloud TTS 實現語音輸出功能,提供更自然的聲音。
-後端 (Backend) 
+後端 (Backend)
 Node.js + NestJS(TypeScript) 採用非同步 I/O 模型,非常適合處理聊天等大量併發連線的場景。NestJS 提供穩固的架構。
 WebSocket (Socket.IO) 實現客戶端與聊天服務之間的低延遲、雙向通訊。
 資料庫
@@ -158,7 +158,7 @@ Stripe 處理 P3 市場的線上金流與分潤。
 Live2D 資產服務
 -提供預簽章 URL(Pre-signed URL) 讓前端安全地上傳模型檔案至 S3。 -驗證上傳檔案的完整性(.moc3, .model3.json等)。 -儲存並管理模型的元資料(名稱、創作者 ID、價格等)。 -提供使用者個人模型庫的列表。
 FR-1.1, FR-3.1, FR-3.2,FR-3.3
-聊天協調服務 
+聊天協調服務
 -管理與客戶端的WebSocket 連線。 -接收使用者訊息,從 Redis 讀取短期記憶。 -(P2) 呼叫長期記憶服務以獲取相關上下文。 -(P2) 組合角色個性設定 (Prompt)、歷史對話、長期記憶,建構完整的 Prompt。 -呼叫Gemini API 並將回應以串流方式回傳給客戶端。 -(P2) 將 LLM 回應非同步發送至情緒分析服務。
 FR-2.1, FR-2.2, FR-4.1,FR-4.2, FR-7.2
 情緒分析服務
