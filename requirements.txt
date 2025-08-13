@@ -1,3 +1,9 @@
 python-dotenv
 openai
 google-generativeai
+
+# Dev dependencies
+pytest
+black
+ruff
+pre-commit
