@@ -1,6 +1,7 @@
 from src.agents.llm_agent import LLMAgent
 from src.logger_config import logger
 
+
 class Orchestrator:
     def __init__(self):
         """
@@ -22,7 +23,7 @@ class Orchestrator:
             try:
                 user_input = input("You: ")
 
-                if user_input.lower() == 'quit':
+                if user_input.lower() == "quit":
                     self.logger.info("User requested to quit the application.")
                     print("Goodbye!")
                     break
