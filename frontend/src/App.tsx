@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, useCallback } from 'react';
+import useWebSocket from 'react-use-websocket';
+import './App.css';
+
+const SOCKET_URL = 'ws://localhost:8000/ws';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [message, setMessage] = useState('');
+  const [messageHistory, setMessageHistory] = useState<string[]>([]);
+
+  const { sendMessage, lastMessage } = useWebSocket(SOCKET_URL, {
+    shouldReconnect: () => true,
+  });
+
+  useEffect(() => {
+    if (lastMessage !== null) {
+      setMessageHistory((prev) => [...prev, lastMessage.data]);
+    }
+  }, [lastMessage, setMessageHistory]);
+
+  const handleSendMessage = useCallback(() => {
+    if (message) {
+      sendMessage(message);
+      setMessage('');
+    }
+  }, [message, sendMessage]);
 
   return (
-    <>
+    <div>
+      <h1>React WebSocket Chat</h1>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+        />
+        <button onClick={handleSendMessage} disabled={!message}>
+          Send
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <h2>Message History</h2>
+      <ul>
+        {messageHistory.map((msg, idx) => (
+          <li key={idx}>{msg}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
