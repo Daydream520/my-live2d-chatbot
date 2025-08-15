@@ -3,3 +3,7 @@ openai
 google-generativeai
 pytest
 pytest-mock
+fastapi
+uvicorn[standard]
+pygame
+gtts
